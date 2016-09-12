@@ -1,0 +1,32 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <title>Scheduling Form</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="form-styles.css" />
+    <link rel="stylesheet" href="../buttons/button.css" />
+    <script src="https://use.fontawesome.com/0d23c53f85.js"></script>
+  </head>
+  <body>
+    <a class="button button-lg" href="./form-index.html">
+      <i class="fa fa-reply" aria-hidden="true"></i>
+    </a>
+    <form>
+      <label for="date">Date</label> <br />
+      <input type="date" name="date">
+      <label for="time">Time</label>
+      <input type="time" name="time">
+      <label for="timezone">Timezone</label>
+      <select name="timezone">
+        <option></option>
+      </select>
+      <label for="message">Message</label>
+      <input type="textarea" name="message">
+      <label for="phone">Phone</label>
+      <input type="tel" name="phone">
+      <label for="email">Email</label>
+      <input type="email" value="address@domain.tld" name="email">
+      <input type="submit" class="button">
+    </form>
+  </body>
+</html>

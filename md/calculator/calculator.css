@@ -1,0 +1,64 @@
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+.footer {
+  display: block;
+}
+
+.calc-body {
+  width: 350px;
+  text-align: center;
+
+  font-size: 1.6em;
+  font-family: "Helvetica", "Tahoma", sans-serif;
+  font-weight: lighter;
+
+  margin-left: auto;
+  margin-right: auto;
+  border: 1px solid black;
+}
+
+.screen {
+  text-align: right;
+  background-color: black;
+  color: white;
+  width: 100%;
+  height: 4em;
+}
+
+.buttons span {
+  background-color: lightgrey;
+  width: 25%;
+  height: 3em;
+  line-height: 3em;
+  color: black;
+  border-left: 1px solid black;
+  border-bottom: 1px solid black;
+  float: left;
+}
+
+.buttons span:active {
+  background-color: black;
+}
+
+.buttons .operator {
+  background-color: orange;
+  color: white;
+  border-right: 1px solid black;
+}
+
+.buttons .modifier {
+  background-color: grey;
+}
+
+.buttons .top {
+  border-top: 1px solid black;
+}
+
+.buttons .wide {
+  width: 50%;
+}

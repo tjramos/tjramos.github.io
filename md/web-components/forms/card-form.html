@@ -1,0 +1,60 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <title>Card Form</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="form-styles.css" />
+    <link rel="stylesheet" href="../buttons/button.css" />
+    <script src="https://use.fontawesome.com/0d23c53f85.js"></script>
+  </head>
+  <body>
+    <a class="button button-lg" href="./form-index.html">
+      <i class="fa fa-reply" aria-hidden="true"></i>
+    </a>
+    <form>
+      <label for="fullname">Full Name</label>
+      <input type="text" name="fullname">
+      <label for="cnum">Card Number</label>
+      <input type="number" name="cnum" maxlength="19">
+      <div>
+        <label for="csv">CSV</label> <!--add tooltip-->
+        <input type="text" name="csv" maxlength="4" length="4">
+        <label for="expiry">Expiration Date:</label>
+      </div>
+      <select name="expmonth" class="auto-width">
+        <option>01</option>
+        <option>02</option>
+        <option>03</option>
+        <option>04</option>
+        <option>05</option>
+        <option>06</option>
+        <option>07</option>
+        <option>08</option>
+        <option>09</option>
+        <option>10</option>
+        <option>11</option>
+        <option>12</option>
+      </select>
+      <span>/</span>
+      <select name="expyear" class="auto-width">
+        <option>2016</option>
+        <option>2017</option>
+        <option>2018</option>
+        <option>2019</option>
+        <option>2020</option>
+        <option>2021</option>
+        <option>2022</option>
+        <option>2023</option>
+        <option>2024</option>
+        <option>2025</option>
+        <option>2026</option>
+        <option>2027</option>
+        <option>2028</option>
+        <option>2029</option>
+        <option>2030</option>
+        <option>2031</option>
+      </select>
+      <input type="submit" class="button">
+    </form>
+  </body>
+</html>

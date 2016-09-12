@@ -1,0 +1,37 @@
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+body {
+  font-family: "Helvetica", "Verdana", sans-serif;
+}
+
+header {
+  text-align: center;
+}
+
+.products {
+  text-align: center;
+  width: 70%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.row {
+  border-bottom: 1px solid black;
+
+  padding-top: 1.6em;
+  padding-bottom: 1.6em;
+}
+
+.product {
+  display: inline-block;
+  width: 24%;
+}
+
+.product img {
+  max-width: 100%;
+}

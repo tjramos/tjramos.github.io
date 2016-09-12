@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <title>Questionnaire Form</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="form-styles.css" />
+    <link rel="stylesheet" href="../buttons/button.css" />
+    <script src="https://use.fontawesome.com/0d23c53f85.js"></script>
+  </head>
+  <body>
+    <a class="button button-lg" href="./form-index.html">
+      <i class="fa fa-reply" aria-hidden="true"></i>
+    </a>
+    <form>
+      <input type="radio" name="question" value="a1">
+      <label for="a1">Answer 1</label>
+      <br />
+      <input type="radio" name="question" value="a2">
+      <label for="a2">Answer 2</label>
+      <br />
+      <input type="radio" name="question" value="a3">
+      <label for="a3">Answer 3</label>
+      <br />
+      <input type="radio" name="question" value="a4">
+      <label for="a4">Answer 4</label>
+      <br />
+      <!--pass value from #other-text-->
+      <input type="radio" name="question" value="">
+      <label for="other">Other: </label>
+      <input id="other-text" type="text" class="auto-width" value="" name="question" maxlength="20">
+      <br />
+      <input type="submit" class="button">
+    </form>
+  </body>
+</html>

@@ -1,0 +1,37 @@
+.cart {
+  width: 70%;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  font-family: "Helvetica", "Verdana", sans-serif;
+}
+
+.cart-products .product {
+  width: 100%;
+  border: none;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.cart-products .product img {
+  max-width: 20%;
+  padding: 2em 1.5em;
+}
+
+.options * {
+  padding-left: 1em;
+  padding-right: 1em;
+}
+
+.cart-bottom {
+  margin-top: 1em;
+  margin-bottom: 1em;
+  float: right;
+  border-top: 1px solid black;
+  text-align: right;
+}
+
+.cart-bottom div {
+  margin-top: 1em;
+}

@@ -1,0 +1,59 @@
+body {
+  font-family: "Helvetica", "Verdana", sans-serif;
+}
+
+.button {
+  display: inline-block;
+  border: 0px solid black;
+  padding: 8px;
+  background-color: #4dd2ff;
+  font-size: 1em;
+  font-weight: lighter;
+  font-family: "Helvetica", "Verdana", sans-serif;
+  color: black;
+  text-decoration: none;
+}
+
+.button:hover {
+  background-color: #00bfff;
+  box-shadow: 2px 2px 1px black;
+  transition: box-shadow .18s, background-color .18s;
+}
+
+.button:active {
+  box-shadow: 1px 1px 1px black;
+  transform: translateY(2px);
+}
+
+.button-sm {
+
+}
+
+.button-md {
+  font-size: 1.6em;
+  padding: 10px;
+}
+
+.button-lg {
+  font-size: 2em;
+  padding: 12px;
+}
+
+.button-center {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  margin-top: 1em;
+}
+
+.emphasized {
+  background-color: lightgreen;
+}
+
+.emphasized:hover {
+  background-color: #35CC38;
+}
+
+.button-lg.emphasized {
+  display: block;
+}
