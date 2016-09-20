@@ -1,36 +1,31 @@
 /*
-	Identity by Pixelarity
-	pixelarity.com @pixelarity
+	Indivisible by Pixelarity
+	pixelarity.com | hello@pixelarity.com
 	License: pixelarity.com/license
 */
 
-/* List */
+/* Button */
 
-	ul.icons li a {
-		-ms-behavior: url("assets/js/PIE.htc");
+	input[type="submit"],
+	input[type="reset"],
+	input[type="button"],
+	button,
+	.button {
+		border: solid 1px #cccccc !important;
 	}
 
-		ul.icons li a:before {
-			text-align: center;
-			font-size: 26px;
+		input[type="submit"].back,
+		input[type="reset"].back,
+		input[type="button"].back,
+		button.back,
+		.button.back {
+			padding-left: 2em;
 		}
 
-/* Main */
-
-	#main {
-		-ms-behavior: url("assets/js/PIE.htc");
-	}
-
-		#main .avatar img {
-			-ms-behavior: url("assets/js/PIE.htc");
-		}
-
-/* Footer */
-
-	#footer {
-		color: #fff;
-	}
-
-		#footer .copyright li {
-			border-left: solid 1px #fff;
+		input[type="submit"].special,
+		input[type="reset"].special,
+		input[type="button"].special,
+		button.special,
+		.button.special {
+			border: 0 !important;
 		}

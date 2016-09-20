@@ -1,10 +1,6 @@
-@import '../libs/vars';
-@import '../libs/functions';
-@import '../libs/mixins';
-
 ///
-/// Identity by Pixelarity
-/// pixelarity.com @pixelarity
+/// Indivisible by Pixelarity
+/// pixelarity.com | hello@pixelarity.com
 /// License: pixelarity.com/license
 ///
 
@@ -13,28 +9,22 @@
 	#wrapper {
 		@include vendor('display', 'flex');
 		@include vendor('align-items', 'center');
-		@include vendor('justify-content', 'space-between');
 		@include vendor('flex-direction', 'column');
+		@include vendor('justify-content', 'center');
 		@include vendor('perspective', '1000px');
-		position: relative;
-		min-height: 100%;
-		padding: _size(element-margin);
-		z-index: 2;
+		min-height: 100vh;
+		padding: (_size(element-margin) * 1.5);
+		width: 100%;
 
-		> * {
-			z-index: 1;
+		@include breakpoint(large) {
+			padding: (_size(element-margin) * 0.75);
 		}
 
-		&:before {
-			content: '';
-			display: block;
+		@include breakpoint(medium) {
+			padding: _size(element-margin);
 		}
 
-		@include breakpoint(xxsmall) {
+		@include breakpoint(small) {
 			padding: (_size(element-margin) * 0.5);
-		}
-
-		body.is-ie & {
-			height: 100%;
 		}
 	}

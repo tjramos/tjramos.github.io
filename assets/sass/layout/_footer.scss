@@ -1,39 +1,38 @@
-@import '../libs/vars';
-@import '../libs/functions';
-@import '../libs/mixins';
-
 ///
-/// Identity by Pixelarity
-/// pixelarity.com @pixelarity
+/// Indivisible by Pixelarity
+/// pixelarity.com | hello@pixelarity.com
 /// License: pixelarity.com/license
 ///
 
 /* Footer */
 
 	#footer {
-		@include vendor('align-self', 'flex-end');
-		width: 100%;
-		padding: _size(element-margin) 0 0 0;
-		color: rgba(255,255,255,0.75);
-		cursor: default;
+		@include vendor('transition', 'opacity 0.5s ease');
+		margin: (_size(element-margin) * 1.5) 0 0 0;
+		opacity: 1.0;
 		text-align: center;
 
 		.copyright {
-			margin: 0;
-			padding: 0;
-			font-size: 0.9em;
-			list-style: none;
+			color: _palette(fg-light);
+			font-size: 0.8em;
+			letter-spacing: _font(letter-spacing-alt);
+			margin-bottom: 0;
+			text-transform: uppercase;
+		}
 
-			li {
-				display: inline-block;
-				margin: 0 0 0 (0.85em - (_size(letter-spacing) * 2));
-				padding: 0 0 0 0.85em;
-				border-left: solid _size(border-width) rgba(255,255,255,0.5);
-				line-height: 1;
+		&.inactive {
+			opacity: 0;
+		}
 
-				&:first-child {
-					border-left: 0;
-				}
-			}
+		@include breakpoint(xlarge) {
+			margin: _size(element-margin) 0 0 0;
+		}
+
+		@include breakpoint(large) {
+			margin: (_size(element-margin) * 0.75) 0 0 0;
+		}
+
+		body.is-loading-0 & {
+			opacity: 0;
 		}
 	}

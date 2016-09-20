@@ -4,22 +4,35 @@
 @import 'libs/skel';
 
 /*
-	Identity by Pixelarity
-	pixelarity.com @pixelarity
+	Indivisible by Pixelarity
+	pixelarity.com | hello@pixelarity.com
 	License: pixelarity.com/license
 */
 
-/* Basic */
+/* Panel */
 
-	body {
-		&:after {
-			display: none;
+	.panel {
+		margin: 0 0 (_size(element-margin) * 1.5) 0;
+
+		body.is-loading-0 & {
+			opacity: 1;
+
+			> .image {
+				@include vendor('transform', 'none !important');
+			}
+
+			> .content {
+				@include vendor('transform', 'none !important');
+			}
 		}
 	}
 
-/* Main */
+/* Footer */
 
-	#main {
-		@include vendor('transform', 'none !important');
-		opacity: 1 !important;
+	#footer {
+		margin-top: 0;
+
+		body.is-loading-0 & {
+			opacity: 1;
+		}
 	}

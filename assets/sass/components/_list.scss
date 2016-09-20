@@ -1,10 +1,6 @@
-@import '../libs/vars';
-@import '../libs/functions';
-@import '../libs/mixins';
-
 ///
-/// Identity by Pixelarity
-/// pixelarity.com @pixelarity
+/// Indivisible by Pixelarity
+/// pixelarity.com | hello@pixelarity.com
 /// License: pixelarity.com/license
 ///
 
@@ -48,50 +44,20 @@
 			cursor: default;
 			list-style: none;
 			padding-left: 0;
-			margin-top: -0.675em;
 
 			li {
 				display: inline-block;
-				padding: 0.675em 0.5em;
+				padding-left: 0;
 
-				a {
-					@include icon-alt(false, true);
-					position: relative;
-					display: block;
-					width: 3.75em;
-					height: 3.75em;
-					border-radius: 100%;
-					border: solid _size(border-width) _palette(border);
-					line-height: 3.75em;
-					overflow: hidden;
+				.icon {
+					display: inline-block;
+					width: 2.5em;
+					height: 2.5em;
+					line-height: 2.5em;
 					text-align: center;
-					text-indent: 3.75em;
-					white-space: nowrap;
 
 					&:before {
-						position: absolute;
-						top: 0;
-						left: 0;
-						width: inherit;
-						height: inherit;
-						font-size: 1.85rem;
-						line-height: inherit;
-						text-align: center;
-						text-indent: 0;
-					}
-
-					&:hover {
-						border-color: _palette(highlight);
-					}
-				}
-			}
-
-			@include breakpoint(xsmall) {
-				li {
-					a {
-						&:before {
-							font-size: 1.5rem;
-						}
+						font-size: 1.25rem;
 					}
 				}
 			}
@@ -100,15 +66,115 @@
 		&.actions {
 			cursor: default;
 			list-style: none;
+			margin-left: (_size(element-margin) * -0.5);
+			margin-top: (_size(element-margin) * -0.5);
 			padding-left: 0;
 
 			li {
 				display: inline-block;
-				padding: 0 (_size(element-margin) * 0.5) 0 0;
+				margin: (_size(element-margin) * 0.5) 0 0 (_size(element-margin) * 0.5);
+				padding-left: 0;
 				vertical-align: middle;
 
 				&:last-child {
 					padding-right: 0;
+				}
+			}
+
+			&.vertical {
+				margin-top: 0;
+				margin-left: 0;
+
+				li {
+					display: block;
+					margin: 0;
+					padding: (_size(element-margin) * 0.75) 0 0 0;
+					position: relative;
+
+					&:first-child {
+						padding-top: 0;
+					}
+
+					> * {
+						margin-bottom: 0;
+					}
+
+					> .button {
+						min-width: 15em;
+					}
+				}
+
+				&.special {
+					li {
+						&:after {
+							background-color: _palette(border);
+							content: '';
+							display: block;
+							height: (_size(element-margin) * 0.75);
+							left: 50%;
+							position: absolute;
+							top: 100%;
+							width: 1px;
+						}
+
+						&:last-child {
+							&:after {
+								display: none;
+							}
+						}
+					}
+				}
+			}
+
+			@include breakpoint(small) {
+				&.vertical {
+					&.special {
+						li {
+							padding: (_size(element-margin) * 0.5) 0 0 0;
+
+							&:after {
+								height: (_size(element-margin) * 0.5);
+							}
+						}
+					}
+				}
+			}
+
+			&.spinY {
+				li {
+					@include vendor('perspective', '1000px');
+
+					a {
+						@include vendor('transition', (
+							'background-color #{_duration(transition)} ease',
+							'box-shadow #{_duration(transition)} ease',
+							'color #{_duration(transition)} ease',
+							'transform 0.5s ease-in'
+						));
+
+						&.active {
+							@include vendor('transform', 'rotateY(480deg)');
+						}
+					}
+				}
+			}
+
+			&.spinX {
+				li {
+					@include vendor('perspective', '1000px');
+
+					a {
+						@include vendor('transition', (
+							'background-color #{_duration(transition)} ease',
+							'box-shadow #{_duration(transition)} ease',
+							'color #{_duration(transition)} ease',
+							'transform 0.5s ease-in'
+						));
+
+						&.active {
+							@include vendor('transform', 'rotateX(480deg)');
+						}
+					}
 				}
 			}
 		}

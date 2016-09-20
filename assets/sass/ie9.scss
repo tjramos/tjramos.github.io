@@ -4,40 +4,34 @@
 @import 'libs/skel';
 
 /*
-	Identity by Pixelarity
-	pixelarity.com @pixelarity
+	Indivisible by Pixelarity
+	pixelarity.com | hello@pixelarity.com
 	License: pixelarity.com/license
 */
 
-/* Basic */
+/* Panel */
 
-	body {
-		background-image:		url('../../images/bg.jpg');
-		background-repeat:		no-repeat;
-		background-size:		cover;
-		background-position:	bottom center;
-		background-attachment:	fixed;
+	.panel {
+		margin: 0 auto;
+
+		> .image {
+			float: left;
+		}
+
+		> .content {
+			float: left;
+		}
 
 		&:after {
-			display: none;
+			content: '';
+			display: block;
+			clear: both;
 		}
-	}
 
-/* List */
-
-	ul {
-		&.icons {
-			li {
-				a {
-					&:before {
-						color: _palette(border);
-					}
-
-					&:hover {
-						&:before {
-							color: _palette(highlight);
-						}
-					}
+		&.secondary {
+			> .content {
+				&:after {
+					display: none;
 				}
 			}
 		}
@@ -46,11 +40,4 @@
 /* Wrapper */
 
 	#wrapper {
-		text-align: center;
-	}
-
-/* Main */
-
-	#main {
-		display: inline-block;
 	}

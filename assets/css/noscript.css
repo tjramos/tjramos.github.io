@@ -1,21 +1,39 @@
 /*
-	Identity by Pixelarity
-	pixelarity.com @pixelarity
+	Indivisible by Pixelarity
+	pixelarity.com | hello@pixelarity.com
 	License: pixelarity.com/license
 */
 
-/* Basic */
+/* Panel */
 
-	body:after {
-		display: none;
+	.panel {
+		margin: 0 0 3em 0;
 	}
 
-/* Main */
+		body.is-loading-0 .panel {
+			opacity: 1;
+		}
 
-	#main {
-		-moz-transform: none !important;
-		-webkit-transform: none !important;
-		-ms-transform: none !important;
-		transform: none !important;
-		opacity: 1 !important;
+			body.is-loading-0 .panel > .image {
+				-moz-transform: none !important;
+				-webkit-transform: none !important;
+				-ms-transform: none !important;
+				transform: none !important;
+			}
+
+			body.is-loading-0 .panel > .content {
+				-moz-transform: none !important;
+				-webkit-transform: none !important;
+				-ms-transform: none !important;
+				transform: none !important;
+			}
+
+/* Footer */
+
+	#footer {
+		margin-top: 0;
 	}
+
+		body.is-loading-0 #footer {
+			opacity: 1;
+		}

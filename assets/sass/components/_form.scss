@@ -1,10 +1,6 @@
-@import '../libs/vars';
-@import '../libs/functions';
-@import '../libs/mixins';
-
 ///
-/// Identity by Pixelarity
-/// pixelarity.com @pixelarity
+/// Indivisible by Pixelarity
+/// pixelarity.com | hello@pixelarity.com
 /// License: pixelarity.com/license
 ///
 
@@ -13,11 +9,38 @@
 	form {
 		margin: 0 0 _size(element-margin) 0;
 
-		> .field {
-			margin: 0 0 _size(element-margin) 0;
+		.field {
+			margin: 0 0 (_size(element-margin) * 0.5) 0;
+			clear: both;
 
-			> :last-child {
-				margin-bottom: 0;
+			&.half {
+				float: left;
+				padding: 0 0 0 0.75em;
+				width: 50%;
+				clear: none;
+
+				&.first {
+					padding: 0 0.75em 0 0;
+					clear: left;
+				}
+			}
+		}
+
+		> .actions {
+			padding-top: (_size(element-margin) * 0.5);
+		}
+
+		@include breakpoint(small) {
+			.field {
+				&.half {
+					width: 100%;
+					float: none;
+					padding: 0;
+
+					&.first {
+						padding: 0;
+					}
+				}
 			}
 		}
 	}
@@ -25,8 +48,11 @@
 	label {
 		color: _palette(fg-bold);
 		display: block;
-		font-size: 0.9em;
+		font-size: 0.8em;
+		font-weight: _font(weight-bold);
 		margin: 0 0 (_size(element-margin) * 0.5) 0;
+		text-transform: uppercase;
+		letter-spacing: 0.25em;
 	}
 
 	input[type="text"],
@@ -36,7 +62,9 @@
 	select,
 	textarea {
 		@include vendor('appearance', 'none');
+		background: _palette(border-bg);
 		border-radius: _size(border-radius);
+		border: none;
 		border: solid 1px _palette(border);
 		color: inherit;
 		display: block;
@@ -50,16 +78,18 @@
 		}
 
 		&:focus {
-			border-color: _palette(highlight);
+			border-color: _palette(accent);
+			box-shadow: 0 0 0 1px _palette(accent);
 		}
 	}
 
 	.select-wrapper {
-		@include icon('\f078');
+		@include icon;
 		display: block;
 		position: relative;
 
 		&:before {
+			content: '\f078';
 			color: _palette(border);
 			display: block;
 			height: _size(element-height);
@@ -103,9 +133,10 @@
 			color: _palette(fg);
 			cursor: pointer;
 			display: inline-block;
-			font-size: 1em;
+			font-size: 0.8em;
 			font-weight: _font(weight);
-			padding-left: (_size(element-height) * 0.6) + 0.75em;
+			margin: 0 0 (_size(element-margin) * 0.25) 0;
+			padding-left: (_size(element-height) * 0.6) + 1.25em;
 			padding-right: 0.75em;
 			position: relative;
 
@@ -120,21 +151,26 @@
 				line-height: (_size(element-height) * 0.575);
 				position: absolute;
 				text-align: center;
-				top: 0.15em;
+				top: 0;
 				width: (_size(element-height) * 0.6);
+				font-size: 1em;
+				letter-spacing: 0;
 			}
 		}
 
 		&:checked + label {
 			&:before {
-				color: _palette(highlight);
+				background: _palette(fg-bold);
+				border-color: _palette(fg-bold);
+				color: _palette(bg-alt);
 				content: '\f00c';
 			}
 		}
 
 		&:focus + label {
 			&:before {
-				border-color: _palette(highlight);
+				border-color: _palette(accent);
+				box-shadow: 0 0 0 1px _palette(accent);
 			}
 		}
 	}
@@ -142,7 +178,7 @@
 	input[type="checkbox"] {
 		& + label {
 			&:before {
-				border-radius: _size(border-radius);
+				border-radius: _size(border-radius) * 0.5;
 			}
 		}
 	}

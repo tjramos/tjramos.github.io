@@ -4,48 +4,25 @@
 @import 'libs/skel';
 
 /*
-	Identity by Pixelarity
-	pixelarity.com @pixelarity
+	Indivisible by Pixelarity
+	pixelarity.com | hello@pixelarity.com
 	License: pixelarity.com/license
 */
 
-/* List */
+/* Button */
 
-	ul {
-		&.icons {
-			li {
-				a {
-					-ms-behavior: url('assets/js/PIE.htc');
+	input[type="submit"],
+	input[type="reset"],
+	input[type="button"],
+	button,
+	.button {
+		border: solid 1px _palette(border) !important;
 
-					&:before {
-						text-align: center;
-						font-size: 26px;
-					}
-				}
-			}
+		&.back {
+			padding-left: 2em;
 		}
-	}
 
-/* Main */
-
-	#main {
-		-ms-behavior: url('assets/js/PIE.htc');
-
-		.avatar {
-			img {
-				-ms-behavior: url('assets/js/PIE.htc');
-			}
-		}
-	}
-
-/* Footer */
-
-	#footer {
-		color: #fff;
-
-		.copyright {
-			li {
-				border-left: solid 1px #fff;
-			}
+		&.special {
+			border: 0 !important;
 		}
 	}
