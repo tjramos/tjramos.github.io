@@ -2,37 +2,42 @@
 @import 'libs/functions';
 @import 'libs/mixins';
 @import 'libs/skel';
+@import 'font-awesome.min.css';
 
 /*
-	Indivisible by Pixelarity
+	Massively by Pixelarity
 	pixelarity.com | hello@pixelarity.com
 	License: pixelarity.com/license
 */
 
-/* Panel */
+/* Wrapper */
 
-	.panel {
-		margin: 0 0 (_size(element-margin) * 1.5) 0;
+	#wrapper {
+		background-color:		_palette(wrapper-bg);
+		background-image:		url('../../images/overlay.png'),	linear-gradient(0deg, rgba(0,0,0,0.1), rgba(0,0,0,0.1)),	url('../../images/bg.jpg');
+		background-size:		auto,								auto,														100% auto;
+		background-position:	center,								center,														top center;
+		background-repeat:		repeat,								no-repeat,													no-repeat;
+		background-attachment:	fixed,								fixed,														fixed;
 
-		body.is-loading-0 & {
-			opacity: 1;
-
-			> .image {
-				@include vendor('transform', 'none !important');
-			}
-
-			> .content {
-				@include vendor('transform', 'none !important');
+		&.fade-in {
+			&:before {
+				display: none;
 			}
 		}
 	}
 
-/* Footer */
+/* Intro */
 
-	#footer {
-		margin-top: 0;
-
-		body.is-loading-0 & {
+	#intro {
+		body.is-loading & {
 			opacity: 1;
+
+			&:not(.hidden) {
+				& + #header + #nav {
+					@include vendor('transform', 'none');
+					opacity: 1;
+				}
+			}
 		}
 	}

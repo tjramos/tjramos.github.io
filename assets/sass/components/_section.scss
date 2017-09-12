@@ -1,5 +1,5 @@
 ///
-/// Indivisible by Pixelarity
+/// Massively by Pixelarity
 /// pixelarity.com | hello@pixelarity.com
 /// License: pixelarity.com/license
 ///
@@ -13,48 +13,100 @@
 	}
 
 	header {
-		margin: (_size(element-margin) * 1.5) 0;
+		cursor: default;
 
-		> :first-child {
-			margin-bottom: 0;
+		> .date {
+			display: block;
+			font-size: 0.8rem;
+			height: 1;
+			margin: 0 0 (_size(element-margin) * 0.5) 0;
+			position: relative;
+		}
 
-			&:after {
-				content: '';
-				display: block;
-				background-color: _palette(border);
-				height: 1px;
-				margin: 1.5rem 0 1.75rem 0;
-				width: 5rem;
+		> p {
+			font-style: italic;
+		}
 
-				.special & {
-					margin-left: auto;
-					margin-right: auto;
+		> h1 + p {
+			font-size: 1.1rem;
+			margin-top: -0.5rem;
+			line-height: 2;
+		}
+
+		> h2 + p {
+			font-size: 1rem;
+			margin-top: -0.75rem;
+		}
+
+		> h3 + p {
+			font-size: 0.9rem;
+			margin-top: -0.75rem;
+		}
+
+		> h4 + p {
+			font-size: 0.8rem;
+			margin-top: -0.75rem;
+		}
+
+		&.major {
+			margin: 0 0 (_size(element-margin) * 2) 0;
+			text-align: center;
+
+			> :last-child {
+				margin-bottom: 0;
+			}
+
+			> p {
+				margin-top: 0;
+				text-align: center;
+			}
+
+			> .date {
+				font-size: 1rem;
+				margin: 0 0 (_size(element-margin) * 2) 0;
+
+				&:before, &:after {
+					content: '';
+					display: block;
+					position: absolute;
+					top: 50%;
+					width: calc(50% - 6rem);
+					border-top: solid 2px;
+				}
+
+				&:before {
+					left: 0;
+				}
+
+				&:after {
+					right: 0;
 				}
 			}
 		}
 
-		p {
-			font-size: 0.9em;
-			letter-spacing: _font(letter-spacing-alt);
-			margin-bottom: 0;
-			text-transform: uppercase;
+		@include breakpoint(medium) {
+			br {
+				display: none;
+			}
 		}
 
 		@include breakpoint(small) {
-			margin: _size(element-margin) 0;
-
-			> :first-child {
-				&:after {
-					margin: 1.25rem 0 1.5rem 0;
-				}
+			&.major {
+				margin: 0 0 _size(element-margin) 0;
 			}
+		}
+	}
 
-			p {
-				font-size: 0.8em;
-
-				br {
-					display: none;
+	@mixin color-section($p: null) {
+		header {
+			&.major {
+				.date {
+					&:before, &:after {
+						border-top-color: _palette($p, border);
+					}
 				}
 			}
 		}
 	}
+
+	@include color-section;

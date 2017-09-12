@@ -1,5 +1,5 @@
 /*
-	Indivisible by Pixelarity
+	Massively by Pixelarity
 	pixelarity.com | hello@pixelarity.com
 	License: pixelarity.com/license
 */
@@ -15,184 +15,251 @@
 		xxsmall: '(max-width: 360px)'
 	});
 
+	/**
+	 * Applies parallax scrolling to an element's background image.
+	 * @return {jQuery} jQuery object.
+	 */
+	$.fn._parallax = function(intensity) {
+
+		var	$window = $(window),
+			$this = $(this);
+
+		if (this.length == 0 || intensity === 0)
+			return $this;
+
+		if (this.length > 1) {
+
+			for (var i=0; i < this.length; i++)
+				$(this[i])._parallax(intensity);
+
+			return $this;
+
+		}
+
+		if (!intensity)
+			intensity = 0.25;
+
+		$this.each(function() {
+
+			var $t = $(this),
+				$bg = $('<div class="bg"></div>').appendTo($t),
+				on, off;
+
+			on = function() {
+
+				$bg
+					.removeClass('fixed')
+					.css('transform', 'matrix(1,0,0,1,0,0)');
+
+				$window
+					.on('scroll._parallax', function() {
+
+						var pos = parseInt($window.scrollTop()) - parseInt($t.position().top);
+
+						$bg.css('transform', 'matrix(1,0,0,1,0,' + (pos * intensity) + ')');
+
+					});
+
+			};
+
+			off = function() {
+
+				$bg
+					.addClass('fixed')
+					.css('transform', 'none');
+
+				$window
+					.off('scroll._parallax');
+
+			};
+
+			// Disable parallax on ..
+				if (skel.vars.browser == 'ie'		// IE
+				||	skel.vars.browser == 'edge'		// Edge
+				||	window.devicePixelRatio > 1		// Retina/HiDPI (= poor performance)
+				||	skel.vars.mobile)				// Mobile devices
+					off();
+
+			// Enable everywhere else.
+				else {
+
+					skel.on('!large -large', on);
+					skel.on('+large', off);
+
+				}
+
+		});
+
+		$window
+			.off('load._parallax resize._parallax')
+			.on('load._parallax resize._parallax', function() {
+				$window.trigger('scroll');
+			});
+
+		return $(this);
+
+	};
+
 	$(function() {
 
 		var	$window = $(window),
-			$document = $(document),
 			$body = $('body'),
 			$wrapper = $('#wrapper'),
-			$footer = $('#footer');
+			$header = $('#header'),
+			$nav = $('#nav'),
+			$main = $('#main'),
+			$navPanelToggle, $navPanel, $navPanelInner;
 
 		// Disable animations/transitions until the page has loaded.
 			$window.on('load', function() {
 				window.setTimeout(function() {
-					$body.removeClass('is-loading-0');
-
-					window.setTimeout(function() {
-						$body.removeClass('is-loading-1');
-					}, 1500);
+					$body.removeClass('is-loading');
 				}, 100);
 			});
 
-		// Fix: Placeholder polyfill.
-			$('form').placeholder();
+		// Prioritize "important" elements on medium.
+			skel.on('+medium -medium', function() {
+				$.prioritize(
+					'.important\\28 medium\\29',
+					skel.breakpoint('medium').active
+				);
+			});
 
-		// Panels.
-			var $wrapper = $('#wrapper'),
-				$panels = $wrapper.children('.panel'),
-				locked = true;
+		// Scrolly.
+			$('.scrolly').scrolly();
 
-			// Deactivate + hide all but the first panel.
-				$panels.not($panels.first())
-					.addClass('inactive')
-					.hide();
+		// Background.
+			$wrapper._parallax(0.925);
 
-			// Fix images.
-				$panels.each(function() {
+		// Nav Panel.
 
-					var	$this = $(this),
-						$image = $this.children('.image'),
-						$img = $image.find('img'),
-						position = $img.data('position');
+			// Toggle.
+				$navPanelToggle = $(
+					'<a href="#navPanel" id="navPanelToggle">Menu</a>'
+				)
+					.appendTo($wrapper);
 
-					// Set background.
-						$image.css('background-image', 'url(' + $img.attr('src') + ')');
+				// Change toggle styling once we've scrolled past the header.
+					$header.scrollex({
+						bottom: '5vh',
+						enter: function() {
+							$navPanelToggle.removeClass('alt');
+						},
+						leave: function() {
+							$navPanelToggle.addClass('alt');
+						}
+					});
 
-					// Set position (if set).
-						if (position)
-							$image.css('background-position', position);
+			// Panel.
+				$navPanel = $(
+					'<div id="navPanel">' +
+						'<nav>' +
+						'</nav>' +
+						'<a href="#navPanel" class="close"></a>' +
+					'</div>'
+				)
+					.appendTo($body)
+					.panel({
+						delay: 500,
+						hideOnClick: true,
+						hideOnSwipe: true,
+						resetScroll: true,
+						resetForms: true,
+						side: 'right',
+						target: $body,
+						visibleClass: 'is-navPanel-visible'
+					});
 
-					// Hide original.
-						$img.hide();
+				// Get inner.
+					$navPanelInner = $navPanel.children('nav');
 
-				});
+				// Move nav content on breakpoint change.
+					var $navContent = $nav.children();
 
-			// Unlock after a delay.
-				window.setTimeout(function() {
-					locked = false;
-				}, 1250);
+					skel.on('!medium -medium', function() {
 
-			// Click event.
-				$('a[href^="#"]').on('click', function(event) {
+						// NavPanel -> Nav.
+							$navContent.appendTo($nav);
 
-					var $this = $(this),
-						id = $this.attr('href'),
-						$panel = $(id),
-						$ul = $this.parents('ul'),
-						delay = 0;
+						// Flip icon classes.
+							$nav.find('.icons, .icon')
+								.removeClass('alt');
 
-					// Prevent default.
-						event.preventDefault();
-						event.stopPropagation();
+					});
 
-					// Locked? Bail.
-						if (locked)
-							return;
+					skel.on('+medium', function() {
 
-					// Lock.
-						locked = true;
+						// Nav -> NavPanel.
+						$navContent.appendTo($navPanelInner);
 
-					// Activate link.
-						$this.addClass('active');
+						// Flip icon classes.
+							$navPanelInner.find('.icons, .icon')
+								.addClass('alt');
 
-						if ($ul.hasClass('spinX')
-						||	$ul.hasClass('spinY'))
-							delay = 250;
+					});
 
-					// Delay.
-						window.setTimeout(function() {
+				// Hack: Disable transitions on WP.
+					if (skel.vars.os == 'wp'
+					&&	skel.vars.osVersion < 10)
+						$navPanel
+							.css('transition', 'none');
 
-							// Deactivate all panels.
-								$panels.addClass('inactive');
+		// Intro.
+			var $intro = $('#intro');
 
-							// Deactivate footer.
-								$footer.addClass('inactive');
+			if ($intro.length > 0) {
 
-							// Delay.
-								window.setTimeout(function() {
+				// Hack: Fix flex min-height on IE.
+					if (skel.vars.browser == 'ie') {
+						$window.on('resize.ie-intro-fix', function() {
 
-									// Hide all panels.
-										$panels.hide();
+							var h = $intro.height();
 
-									// Show target panel.
-										$panel.show();
+							if (h > $window.height())
+								$intro.css('height', 'auto');
+							else
+								$intro.css('height', h);
 
-									// Reset scroll.
-										$document.scrollTop(0);
+						}).trigger('resize.ie-intro-fix');
+					}
 
-									// Delay.
-										window.setTimeout(function() {
+				// Hide intro on scroll (> small).
+					skel.on('!small -small', function() {
 
-											// Activate target panel.
-												$panel.removeClass('inactive');
+						$main.unscrollex();
 
-											// Deactivate link.
-												$this.removeClass('active');
-
-											// Unlock.
-												locked = false;
-
-											// IE: Refresh.
-												$window.triggerHandler('--refresh');
-
-											window.setTimeout(function() {
-
-												// Activate footer.
-													$footer.removeClass('inactive');
-
-											}, 250);
-
-										}, 100);
-
-								}, 350);
-
-						}, delay);
-
-				});
-
-		// IE: Fixes.
-			if (skel.vars.IEVersion < 12) {
-
-				// Layout fixes.
-					$window.on('--refresh', function() {
-
-						// Fix min-height/flexbox.
-							$wrapper.css('height', 'auto');
-
-							window.setTimeout(function() {
-
-								var h = $wrapper.height(),
-									wh = $window.height();
-
-								if (h < wh)
-									$wrapper.css('height', '100vh');
-
-							}, 0);
-
-						// Fix panel image/content heights (IE<10 only).
-							if (skel.vars.IEVersion < 10) {
-
-								var $panel = $('.panel').not('.inactive'),
-									$image = $panel.find('.image'),
-									$content = $panel.find('.content'),
-									ih = $image.height(),
-									ch = $content.height(),
-									x = Math.max(ih, ch);
-
-								$image.css('min-height', x + 'px');
-								$content.css('min-height', x + 'px');
-
+						$main.scrollex({
+							mode: 'bottom',
+							top: '25vh',
+							bottom: '-50vh',
+							enter: function() {
+								$intro.addClass('hidden');
+							},
+							leave: function() {
+								$intro.removeClass('hidden');
 							}
+						});
 
 					});
 
-					$window.on('load', function() {
-						$window.triggerHandler('--refresh');
-					});
+				// Hide intro on scroll (<= small).
+					skel.on('+small', function() {
 
-				// Remove spinX/spinY.
-					$('.spinX').removeClass('spinX');
-					$('.spinY').removeClass('spinY');
+						$main.unscrollex();
+
+						$main.scrollex({
+							mode: 'middle',
+							top: '15vh',
+							bottom: '-15vh',
+							enter: function() {
+								$intro.addClass('hidden');
+							},
+							leave: function() {
+								$intro.removeClass('hidden');
+							}
+						});
+
+				});
 
 			}
 

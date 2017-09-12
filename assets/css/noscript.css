@@ -1,39 +1,36 @@
+@import url(font-awesome.min.css);
+
 /*
-	Indivisible by Pixelarity
+	Massively by Pixelarity
 	pixelarity.com | hello@pixelarity.com
 	License: pixelarity.com/license
 */
 
-/* Panel */
+/* Wrapper */
 
-	.panel {
-		margin: 0 0 3em 0;
+	#wrapper {
+		background-color: #212931;
+		background-image: url("../../images/overlay.png"), linear-gradient(0deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), url("../../images/bg.jpg");
+		background-size: auto,								auto,														100% auto;
+		background-position: center,								center,														top center;
+		background-repeat: repeat,								no-repeat,													no-repeat;
+		background-attachment: fixed,								fixed,														fixed;
 	}
 
-		body.is-loading-0 .panel {
-			opacity: 1;
+		#wrapper.fade-in:before {
+			display: none;
 		}
 
-			body.is-loading-0 .panel > .image {
-				-moz-transform: none !important;
-				-webkit-transform: none !important;
-				-ms-transform: none !important;
-				transform: none !important;
-			}
+/* Intro */
 
-			body.is-loading-0 .panel > .content {
-				-moz-transform: none !important;
-				-webkit-transform: none !important;
-				-ms-transform: none !important;
-				transform: none !important;
-			}
-
-/* Footer */
-
-	#footer {
-		margin-top: 0;
+	body.is-loading #intro {
+		opacity: 1;
 	}
 
-		body.is-loading-0 #footer {
+		body.is-loading #intro:not(.hidden) + #header + #nav {
+			-moz-transform: none;
+			-webkit-transform: none;
+			-ms-transform: none;
+			transform: none;
 			opacity: 1;
 		}
