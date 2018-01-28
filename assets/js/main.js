@@ -1,5 +1,5 @@
 /*
-	Massively by Pixelarity
+	Formula by Pixelarity
 	pixelarity.com | hello@pixelarity.com
 	License: pixelarity.com/license
 */
@@ -11,111 +11,25 @@
 		large:	'(max-width: 1280px)',
 		medium:	'(max-width: 980px)',
 		small:	'(max-width: 736px)',
-		xsmall:	'(max-width: 480px)',
-		xxsmall: '(max-width: 360px)'
+		xsmall:	'(max-width: 480px)'
 	});
-
-	/**
-	 * Applies parallax scrolling to an element's background image.
-	 * @return {jQuery} jQuery object.
-	 */
-	$.fn._parallax = function(intensity) {
-
-		var	$window = $(window),
-			$this = $(this);
-
-		if (this.length == 0 || intensity === 0)
-			return $this;
-
-		if (this.length > 1) {
-
-			for (var i=0; i < this.length; i++)
-				$(this[i])._parallax(intensity);
-
-			return $this;
-
-		}
-
-		if (!intensity)
-			intensity = 0.25;
-
-		$this.each(function() {
-
-			var $t = $(this),
-				$bg = $('<div class="bg"></div>').appendTo($t),
-				on, off;
-
-			on = function() {
-
-				$bg
-					.removeClass('fixed')
-					.css('transform', 'matrix(1,0,0,1,0,0)');
-
-				$window
-					.on('scroll._parallax', function() {
-
-						var pos = parseInt($window.scrollTop()) - parseInt($t.position().top);
-
-						$bg.css('transform', 'matrix(1,0,0,1,0,' + (pos * intensity) + ')');
-
-					});
-
-			};
-
-			off = function() {
-
-				$bg
-					.addClass('fixed')
-					.css('transform', 'none');
-
-				$window
-					.off('scroll._parallax');
-
-			};
-
-			// Disable parallax on ..
-				if (skel.vars.browser == 'ie'		// IE
-				||	skel.vars.browser == 'edge'		// Edge
-				||	window.devicePixelRatio > 1		// Retina/HiDPI (= poor performance)
-				||	skel.vars.mobile)				// Mobile devices
-					off();
-
-			// Enable everywhere else.
-				else {
-
-					skel.on('!large -large', on);
-					skel.on('+large', off);
-
-				}
-
-		});
-
-		$window
-			.off('load._parallax resize._parallax')
-			.on('load._parallax resize._parallax', function() {
-				$window.trigger('scroll');
-			});
-
-		return $(this);
-
-	};
 
 	$(function() {
 
 		var	$window = $(window),
-			$body = $('body'),
-			$wrapper = $('#wrapper'),
-			$header = $('#header'),
-			$nav = $('#nav'),
-			$main = $('#main'),
-			$navPanelToggle, $navPanel, $navPanelInner;
+			$body = $('body');
 
 		// Disable animations/transitions until the page has loaded.
+			$body.addClass('is-loading');
+
 			$window.on('load', function() {
 				window.setTimeout(function() {
 					$body.removeClass('is-loading');
 				}, 100);
 			});
+
+		// Fix: Placeholder polyfill.
+			$('form').placeholder();
 
 		// Prioritize "important" elements on medium.
 			skel.on('+medium -medium', function() {
@@ -125,143 +39,122 @@
 				);
 			});
 
-		// Scrolly.
-			$('.scrolly').scrolly();
+		// Menu.
+			$('#menu')
+				.append('<a href="#menu" class="close"></a>')
+				.appendTo($body)
+				.panel({
+					visibleClass: 'is-menu-visible',
+					target: $body,
+					delay: 500,
+					hideOnClick: true,
+					hideOnSwipe: true,
+					resetScroll: true,
+					resetForms: true,
+					side: 'right'
+				});
 
-		// Background.
-			$wrapper._parallax(0.925);
+		// Banner.
+			var $banner = $('#banner'),
+				$header = $('#header');
 
-		// Nav Panel.
+			if ($banner.length > 0) {
 
-			// Toggle.
-				$navPanelToggle = $(
-					'<a href="#navPanel" id="navPanelToggle">Menu</a>'
-				)
-					.appendTo($wrapper);
+				// Video check.
+					var video = $banner.data('video');
 
-				// Change toggle styling once we've scrolled past the header.
-					$header.scrollex({
-						bottom: '5vh',
-						enter: function() {
-							$navPanelToggle.removeClass('alt');
-						},
-						leave: function() {
-							$navPanelToggle.addClass('alt');
-						}
-					});
+					if (video)
+						$window.on('load.banner', function() {
 
-			// Panel.
-				$navPanel = $(
-					'<div id="navPanel">' +
-						'<nav>' +
-						'</nav>' +
-						'<a href="#navPanel" class="close"></a>' +
-					'</div>'
-				)
-					.appendTo($body)
-					.panel({
-						delay: 500,
-						hideOnClick: true,
-						hideOnSwipe: true,
-						resetScroll: true,
-						resetForms: true,
-						side: 'right',
-						target: $body,
-						visibleClass: 'is-navPanel-visible'
-					});
+							// Disable banner load event (so it doesn't fire again).
+								$window.off('load.banner');
 
-				// Get inner.
-					$navPanelInner = $navPanel.children('nav');
+							// Append video if supported.
+								if (!skel.vars.mobile
+								&&	!skel.breakpoint('large').active
+								&&	skel.vars.IEVersion > 9)
+									$banner.append('<video autoplay loop><source src="' + video + '.mp4" type="video/mp4" /><source src="' + video + '.webm" type="video/webm" /></video>');
 
-				// Move nav content on breakpoint change.
-					var $navContent = $nav.children();
+						});
 
-					skel.on('!medium -medium', function() {
+				// IE: Height fix.
+					if (skel.vars.browser == 'ie'
+					&&	skel.vars.IEVersion > 9) {
 
-						// NavPanel -> Nav.
-							$navContent.appendTo($nav);
+						skel.on('-small !small', function() {
+							$banner.css('height', '100vh');
+						});
 
-						// Flip icon classes.
-							$nav.find('.icons, .icon')
-								.removeClass('alt');
+						skel.on('+small', function() {
+							$banner.css('height', '');
+						});
 
-					});
-
-					skel.on('+medium', function() {
-
-						// Nav -> NavPanel.
-						$navContent.appendTo($navPanelInner);
-
-						// Flip icon classes.
-							$navPanelInner.find('.icons, .icon')
-								.addClass('alt');
-
-					});
-
-				// Hack: Disable transitions on WP.
-					if (skel.vars.os == 'wp'
-					&&	skel.vars.osVersion < 10)
-						$navPanel
-							.css('transition', 'none');
-
-		// Intro.
-			var $intro = $('#intro');
-
-			if ($intro.length > 0) {
-
-				// Hack: Fix flex min-height on IE.
-					if (skel.vars.browser == 'ie') {
-						$window.on('resize.ie-intro-fix', function() {
-
-							var h = $intro.height();
-
-							if (h > $window.height())
-								$intro.css('height', 'auto');
-							else
-								$intro.css('height', h);
-
-						}).trigger('resize.ie-intro-fix');
 					}
 
-				// Hide intro on scroll (> small).
-					skel.on('!small -small', function() {
+				// More button.
+					$banner.find('.more')
+						.addClass('scrolly');
 
-						$main.unscrollex();
+				// Header.
+					$header
+						.addClass('with-banner')
+						.addClass('alt');
 
-						$main.scrollex({
-							mode: 'bottom',
-							top: '25vh',
-							bottom: '-50vh',
-							enter: function() {
-								$intro.addClass('hidden');
-							},
-							leave: function() {
-								$intro.removeClass('hidden');
-							}
-						});
-
+					$banner.scrollex({
+						mode: 'top',
+						top: '-100vh',
+						bottom: 10,
+						enter: function() { $header.addClass('alt'); },
+						leave: function() { $header.removeClass('alt'); }
 					});
 
-				// Hide intro on scroll (<= small).
-					skel.on('+small', function() {
+			}
 
-						$main.unscrollex();
+		// Spotlights.
+			var $spotlight = $('.spotlight');
 
-						$main.scrollex({
-							mode: 'middle',
-							top: '15vh',
-							bottom: '-15vh',
-							enter: function() {
-								$intro.addClass('hidden');
-							},
-							leave: function() {
-								$intro.removeClass('hidden');
-							}
-						});
+			if ($spotlight.length > 0
+			&&	skel.canUse('transition'))
+				$spotlight.each(function() {
+
+					var $this = $(this);
+
+					$this.scrollex({
+						mode: 'middle',
+						top: '-10vh',
+						bottom: '-10vh',
+						initialize: function() { $this.addClass('inactive'); },
+						enter: function() { $this.removeClass('inactive'); }
+					});
 
 				});
 
-			}
+		// Features.
+			var $features = $('.features');
+
+			if ($features.length > 0
+			&&	skel.canUse('transition'))
+				$features.each(function() {
+
+					var $this = $(this);
+
+					$this.scrollex({
+						mode: 'middle',
+						top: '-20vh',
+						bottom: '-20vh',
+						initialize: function() { $this.addClass('inactive'); },
+						enter: function() { $this.removeClass('inactive'); }
+					});
+
+				});
+
+		// Scrolly.
+			$('.scrolly').scrolly();
+
+		// Initial scroll.
+			$window.on('load', function() {
+				$window.trigger('scroll');
+			});
 
 	});
 

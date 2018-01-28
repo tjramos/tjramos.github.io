@@ -1,5 +1,5 @@
 ///
-/// Massively by Pixelarity
+/// Formula by Pixelarity
 /// pixelarity.com | hello@pixelarity.com
 /// License: pixelarity.com/license
 ///
@@ -8,9 +8,9 @@
 
 	.box {
 		border-radius: _size(border-radius);
-		border: solid 2px;
+		border: solid _size(border-width);
 		margin-bottom: _size(element-margin);
-		padding: 1.5rem;
+		padding: 1.5em;
 
 		> :last-child,
 		> :last-child > :last-child,

@@ -1,63 +1,167 @@
 ///
-/// Massively by Pixelarity
+/// Formula by Pixelarity
 /// pixelarity.com | hello@pixelarity.com
 /// License: pixelarity.com/license
 ///
 
 /* Header */
 
-	#header {
-		@include color-typography(invert);
-		@include vendor('align-items', 'center');
-		@include vendor('display', 'flex');
-		@include vendor('flex-direction', 'column');
-		@include vendor('justify-content', 'flex-end');
-		@include vendor('pointer-events', 'none');
-		@include vendor('user-select', 'none');
-		height: 20rem;
-		padding-bottom: (_size(padding) * 4);
+	#page-wrapper {
 		position: relative;
-		text-align: center;
-		z-index: 2;
+		padding-top: 3.5em;
+
+		@include breakpoint(small) {
+			padding-top: 2.75em;
+		}
+	}
+
+	#header {
+		@include vendor('display', 'flex');
+		@include vendor('justify-content', 'space-between');
+		@include vendor('align-items', 'center');
+		@include vendor('transition', (
+			'border-bottom-color #{_duration(transition)} ease',
+			'color #{_duration(transition)} ease',
+			'background-color #{_duration(transition)} ease'
+		));
+		border-bottom: solid 2px _palette(border);
+		background: _palette(bg);
+		height: 3.5em;
+		left: 0;
+		line-height: 3.5em;
+		padding: 0 0 0 1.5em;
+		position: fixed;
+		top: 0;
+		width: 100%;
+		z-index: _misc(z-index-base);
+
+		a {
+			color: inherit;
+			font-size: 0.8em;
+			font-weight: _font(weight-bold);
+			letter-spacing: _font(kerning);
+			text-transform: uppercase;
+			border: 0;
+		}
 
 		.logo {
-			@include vendor('transition', (
-				'border-color #{_duration(transition)} ease-in-out',
-				'color #{_duration(transition)} ease-in-out',
-				'opacity 0.5s ease',
-				'transform 0.5s ease',
-				'visibility 0.5s'
-			));
-			@include vendor('pointer-events', 'auto');
-			border-style: solid;
-			border-color: _palette(invert, border);
-			border-width: 5px !important;
-			font-family: _font(family-heading);
-			font-size: 2.25rem;
-			font-weight: _font(weight-heading);
-			letter-spacing: 0.075em;
-			line-height: 1;
-			padding: 1rem 1.75rem;
-			text-transform: uppercase;
-			visibility: visible;
+			display: block;
+			height: inherit;
+			line-height: inherit;
 
-			&:hover {
-				border-color: _palette(invert, accent) !important;
-				color: _palette(invert, accent) !important;
+			span {
+				font-weight: _font(weight);
 			}
 		}
 
-		@include breakpoint(medium) {
-			height: 14rem;
-			padding-bottom: (_size(padding) * 2);
+		nav {
+			ul {
+				list-style: none;
+				margin: 0;
+				padding: 0;
+
+				li {
+					display: inline-block;
+					padding: 0;
+
+					a {
+						display: inline-block;
+						padding: 0 1.5em 0 1.5em;
+						position: relative;
+
+						&[href="#menu"] {
+							padding-right: 3em;
+
+							&:before {
+								content: '';
+								background-image: url('images/menu.svg');
+								background-position: center;
+								background-repeat: no-repeat;
+								display: block;
+								height: 100%;
+								position: absolute;
+								right: 1.5em;
+								text-align: center;
+								top: 0;
+								width: 1em;
+							}
+						}
+					}
+				}
+			}
+		}
+
+		&.alt {
+			background-color: transparent;
+			border-bottom-color: transparent;
+			color: _palette(invert, fg-bold);
+
+			nav {
+				ul {
+					li {
+						a {
+							&[href="#menu"] {
+								&:before {
+									background-image: url('images/menu-alt.svg');
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+
+		&.with-banner {
+			& + #banner {
+				margin-top: -3.5em;
+			}
 		}
 
 		@include breakpoint(small) {
-			padding-bottom: (_size(padding) * 1.5);
+			height: 2.75em;
+			line-height: 2.75em;
+			padding: 0 0 0 0.75em;
 
+			nav {
+				ul {
+					li {
+						a {
+							padding: 0 0.75em 0 0.75em;
+
+							&[href="#menu"] {
+								padding-right: 2.5em;
+
+								&:before {
+									right: 1em;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+
+		@include breakpoint(xsmall) {
 			.logo {
-				font-size: 1.75rem;
-				border-width: 3px !important;
+				span {
+					display: none;
+				}
+			}
+
+			nav {
+				ul {
+					li {
+						a {
+							&[href="#menu"] {
+								&:only-child {
+									width: 6em;
+									text-indent: 6em;
+									white-space: nowrap;
+								}
+							}
+						}
+					}
+				}
 			}
 		}
 	}

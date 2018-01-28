@@ -3,10 +3,10 @@
 @import 'libs/mixins';
 @import 'libs/skel';
 @import 'font-awesome.min.css';
-@import url('https://fonts.googleapis.com/css?family=Merriweather:300,700,300italic,700italic|Source+Sans+Pro:900');
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,500|Oswald:400');
 
 /*
-	Massively by Pixelarity
+	Formula by Pixelarity
 	pixelarity.com | hello@pixelarity.com
 	License: pixelarity.com/license
 */
@@ -23,7 +23,15 @@
 	@include skel-layout((
 		reset: 'full',
 		boxModel: 'border',
-		grid: ( gutters: 1.5rem )
+		grid: ( gutters: 2em ),
+		breakpoints: (
+			large: (
+				grid: ( gutters: 1.5em )
+			),
+			small: (
+				grid: ( gutters: 1.25em )
+			)
+		)
 	));
 
 	@mixin color($p) {
@@ -34,7 +42,8 @@
 		@include color-list($p);
 		@include color-section($p);
 		@include color-table($p);
-		@include color-pagination($p);
+		@include color-spotlight($p);
+		@include color-features($p);
 	}
 
 // Base.
@@ -52,14 +61,15 @@
 	@import 'components/list';
 	@import 'components/section';
 	@import 'components/table';
-	@import 'components/pagination';
+	@import 'components/spotlight';
+	@import 'components/features';
 
 // Layout.
 
-	@import 'layout/wrapper';
-	@import 'layout/intro';
 	@import 'layout/header';
-	@import 'layout/nav';
-	@import 'layout/main';
+	@import 'layout/menu';
+	@import 'layout/banner';
+	@import 'layout/cta';
 	@import 'layout/footer';
-	@import 'layout/navPanel';
+	@import 'layout/wrapper';
+	@import 'layout/page-wrapper';

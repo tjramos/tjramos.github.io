@@ -1,5 +1,5 @@
 ///
-/// Massively by Pixelarity
+/// Formula by Pixelarity
 /// pixelarity.com | hello@pixelarity.com
 /// License: pixelarity.com/license
 ///
@@ -24,8 +24,7 @@
 		}
 
 	body {
-
-		background-color: _palette(invert, bg);
+		background: _palette(bg);
 
 		// Prevents animation/transition "flicker" on page load.
 		// Automatically added/removed by js/main.js.
