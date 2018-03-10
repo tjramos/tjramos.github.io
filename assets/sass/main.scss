@@ -3,11 +3,11 @@
 @import 'libs/mixins';
 @import 'libs/skel';
 @import 'font-awesome.min.css';
-@import url('https://fonts.googleapis.com/css?family=Roboto:300,500|Oswald:400');
+@import url('http://fonts.googleapis.com/css?family=Roboto:400,700');
 
 /*
-	Formula by Pixelarity
-	pixelarity.com | hello@pixelarity.com
+	Eventually by Pixelarity
+	pixelarity.com @pixelarity
 	License: pixelarity.com/license
 */
 
@@ -17,59 +17,31 @@
 		medium: '(max-width: 980px)',
 		small: '(max-width: 736px)',
 		xsmall: '(max-width: 480px)',
-		xxsmall: '(max-width: 360px)'
+		xxsmall: '(max-width: 360px)',
+		short: '(max-height: 640px)'
 	));
 
 	@include skel-layout((
 		reset: 'full',
-		boxModel: 'border',
-		grid: ( gutters: 2em ),
-		breakpoints: (
-			large: (
-				grid: ( gutters: 1.5em )
-			),
-			small: (
-				grid: ( gutters: 1.25em )
-			)
-		)
+		boxModel: 'border'
 	));
-
-	@mixin color($p) {
-		@include color-typography($p);
-		@include color-box($p);
-		@include color-button($p);
-		@include color-form($p);
-		@include color-list($p);
-		@include color-section($p);
-		@include color-table($p);
-		@include color-spotlight($p);
-		@include color-features($p);
-	}
 
 // Base.
 
 	@import 'base/page';
+	@import 'base/bg';
 	@import 'base/typography';
 
-// Component.
+// Components.
 
-	@import 'components/box';
-	@import 'components/button';
-	@import 'components/form';
-	@import 'components/icon';
-	@import 'components/image';
-	@import 'components/list';
 	@import 'components/section';
-	@import 'components/table';
-	@import 'components/spotlight';
-	@import 'components/features';
+	@import 'components/icon';
+	@import 'components/list';
+	@import 'components/form';
+	@import 'components/button';
 
 // Layout.
 
 	@import 'layout/header';
-	@import 'layout/menu';
-	@import 'layout/banner';
-	@import 'layout/cta';
+	@import 'layout/signup-form';
 	@import 'layout/footer';
-	@import 'layout/wrapper';
-	@import 'layout/page-wrapper';

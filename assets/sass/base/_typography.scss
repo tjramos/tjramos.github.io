@@ -1,50 +1,62 @@
+@import '../libs/vars';
+@import '../libs/functions';
+@import '../libs/mixins';
+
 ///
-/// Formula by Pixelarity
-/// pixelarity.com | hello@pixelarity.com
+/// Eventually by Pixelarity
+/// pixelarity.com @pixelarity
 /// License: pixelarity.com/license
 ///
 
 /* Type */
 
-	body {
-		background-color: _palette(invert, bg);
-		color: _palette(fg);
-	}
-
 	body, input, select, textarea {
+		color: _palette(fg);
 		font-family: _font(family);
 		font-size: 16pt;
 		font-weight: _font(weight);
-		line-height: 1.65;
+		letter-spacing: _font(letter-spacing);
+		line-height: 1.65em;
 
 		@include breakpoint(xlarge) {
-			font-size: 13pt;
-		}
-
-		@include breakpoint(large) {
 			font-size: 12pt;
 		}
 
-		@include breakpoint(xxsmall) {
+		@include breakpoint(large) {
 			font-size: 11pt;
+		}
+
+		@include breakpoint(medium) {
+			font-size: 12pt;
+		}
+
+		@include breakpoint(small) {
+			font-size: 12pt;
+		}
+
+		@include breakpoint(xsmall) {
+			font-size: 12pt;
 		}
 	}
 
 	a {
 		@include vendor('transition', (
-			'color #{_duration(transition)} ease-in-out',
-			'border-bottom-color #{_duration(transition)} ease-in-out',
+			'border-bottom-color #{_duration(transition)} ease',
+			'color #{_duration(transition)} ease'
 		));
-		color: inherit;
+		border-bottom: dotted 1px _palette(border2);
+		color: _palette(accent, bg);
 		text-decoration: none;
-		border-bottom: dotted 1px;
 
 		&:hover {
 			border-bottom-color: transparent;
+			color: _palette(accent, bg) !important;
+			text-decoration: none;
 		}
 	}
 
 	strong, b {
+		color: _palette(fg-bold);
 		font-weight: _font(weight-bold);
 	}
 
@@ -57,12 +69,10 @@
 	}
 
 	h1, h2, h3, h4, h5, h6 {
+		color: _palette(fg-bold);
 		font-weight: _font(weight-bold);
-		line-height: 1.5;
+		line-height: 1em;
 		margin: 0 0 (_size(element-margin) * 0.5) 0;
-		font-weight: _font(weight-bold);
-		letter-spacing: _font(kerning);
-		text-transform: uppercase;
 
 		a {
 			color: inherit;
@@ -70,40 +80,34 @@
 		}
 	}
 
-	h1, h2 {
-		font-family: _font(family-heading);
-		font-weight: _font(weight-heading);
-		letter-spacing: _font(kerning-heading);
-	}
-
 	h1 {
 		font-size: 2.5em;
+		line-height: 1.25em;
 	}
 
 	h2 {
-		font-size: 1.25em;
+		font-size: 1.75em;
+		line-height: 1.5em;
 	}
 
 	h3 {
-		font-size: 0.8em;
+		font-size: 1.35em;
+		line-height: 1.5em;
 	}
 
 	h4 {
-		font-size: 0.6em;
+		font-size: 1.1em;
+		line-height: 1.5em;
 	}
 
 	h5 {
-		font-size: 0.6em;
+		font-size: 0.9em;
+		line-height: 1.5em;
 	}
 
 	h6 {
-		font-size: 0.6em;
-	}
-
-	@include breakpoint(small) {
-		h1 {
-			font-size: 1.5em;
-		}
+		font-size: 0.7em;
+		line-height: 1.5em;
 	}
 
 	sub {
@@ -119,15 +123,16 @@
 	}
 
 	blockquote {
-		border-left: solid (_size(border-width) * 4);
+		border-left: solid (_size(border-width) * 4) _palette(border);
 		font-style: italic;
 		margin: 0 0 _size(element-margin) 0;
 		padding: (_size(element-margin) / 4) 0 (_size(element-margin) / 4) _size(element-margin);
 	}
 
 	code {
+		background: _palette(border-bg);
 		border-radius: _size(border-radius);
-		border: solid _size(border-width);
+		border: solid _size(border-width) _palette(border);
 		font-family: _font(family-fixed);
 		font-size: 0.9em;
 		margin: 0 0.25em;
@@ -142,7 +147,7 @@
 
 		code {
 			display: block;
-			line-height: 1.75;
+			line-height: 1.75em;
 			padding: 1em 1.5em;
 			overflow-x: auto;
 		}
@@ -150,69 +155,10 @@
 
 	hr {
 		border: 0;
-		border-bottom: solid _size(border-width);
+		border-bottom: solid _size(border-width) _palette(border);
 		margin: _size(element-margin) 0;
 
 		&.major {
 			margin: (_size(element-margin) * 1.5) 0;
 		}
 	}
-
-	.align-left {
-		text-align: left;
-	}
-
-	.align-center {
-		text-align: center;
-	}
-
-	.align-right {
-		text-align: right;
-	}
-
-	@mixin color-typography($p: null) {
-		$highlight: _palette($p, highlight);
-
-		@if $p != null {
-			background-color: _palette($p, bg);
-			color: _palette($p, fg);
-		}
-
-		input, select, textarea {
-			color: _palette($p, fg-bold);
-		}
-
-		a {
-			&:hover {
-				@if $p == $highlight {
-					color: _palette($p, fg-bold) !important;
-				}
-				@else {
-					color: _palette(accent1, bg) !important;
-				}
-			}
-		}
-
-		strong, b {
-			color: _palette($p, fg-bold);
-		}
-
-		h1, h2, h3, h4, h5, h6 {
-			color: _palette($p, fg-bold);
-		}
-
-		blockquote {
-			border-left-color: _palette($p, border);
-		}
-
-		code {
-			background: _palette($p, border-bg);
-			border-color: _palette($p, border);
-		}
-
-		hr {
-			border-bottom-color: _palette($p, border);
-		}
-	}
-
-	@include color-typography;

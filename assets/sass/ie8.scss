@@ -4,29 +4,29 @@
 @import 'libs/skel';
 
 /*
-	Formula by Pixelarity
-	pixelarity.com | hello@pixelarity.com
+	Eventually by Pixelarity
+	pixelarity.com @pixelarity
 	License: pixelarity.com/license
 */
 
-/* Button */
+/* BG */
 
-	input[type="submit"],
-	input[type="reset"],
-	input[type="button"],
-	button,
-	.button {
-		border: solid 2px _palette(border);
-
-		&.special {
-			border: 0;
-		}
+	#bg {
+		-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=25)";
 	}
 
-/* Banner */
+/* Type */
 
-	#banner {
-		&:before {
-			display: none;
-		}
+	body, input, select, textarea {
+		color: _palette(fg-bold);
+	}
+
+/* Form */
+
+	input[type="text"],
+	input[type="password"],
+	input[type="email"],
+	select,
+	textarea {
+		border: solid _size(border-width) _palette(fg-bold);
 	}
