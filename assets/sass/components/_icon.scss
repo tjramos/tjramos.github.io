@@ -1,10 +1,6 @@
-@import '../libs/vars';
-@import '../libs/functions';
-@import '../libs/mixins';
-
 ///
-/// Eventually by Pixelarity
-/// pixelarity.com @pixelarity
+/// Reflex by Pixelarity
+/// pixelarity.com | hello@pixelarity.com
 /// License: pixelarity.com/license
 ///
 
@@ -12,8 +8,8 @@
 
 	.icon {
 		@include icon;
-		border-bottom: none;
 		position: relative;
+		border-bottom-width: 0;
 
 		> .label {
 			display: none;

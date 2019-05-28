@@ -1,10 +1,6 @@
-@import '../libs/vars';
-@import '../libs/functions';
-@import '../libs/mixins';
-
 ///
-/// Eventually by Pixelarity
-/// pixelarity.com @pixelarity
+/// Reflex by Pixelarity
+/// pixelarity.com | hello@pixelarity.com
 /// License: pixelarity.com/license
 ///
 
@@ -13,56 +9,68 @@
 	form {
 		margin: 0 0 _size(element-margin) 0;
 
-		.message {
-			@include icon;
-			@include vendor('transition', (
-				'opacity #{_duration(transition)} ease-in-out',
-				'transform #{_duration(transition)} ease-in-out'
-			));
-			@include vendor('transform', 'scale(1.05)');
-			height: _size(element-height);
-			line-height: _size(element-height);
-			opacity: 0;
+		&:after {
+			content: '';
+			display: block;
+			clear: both;
+			height: 1px;
+		}
 
-			&:before {
-				margin-right: 0.5em;
+		.field {
+			position: relative;
+			float: left;
+			margin: 0 0 (_size(gutter) * 0.5) 0;
+			vertical-align: top;
+			width: 100%;
+		}
+
+		.half {
+			width: calc(50% + #{_size(gutter) * 0.25}) !important;
+			padding-left: _size(gutter) * 0.5;
+		}
+
+		.half.first {
+			width: calc(50% - #{_size(gutter) * 0.25}) !important;
+			padding-left: 0;
+		}
+
+		:last-child {
+			margin-bottom: 0;
+		}
+
+		.half:nth-last-child(2) {
+			margin-bottom: 0;
+		}
+
+		.actions {
+			position: relative;
+			clear: both;
+			margin-bottom: 0 !important;
+		}
+
+		@include breakpoint(xsmall) {
+			.half {
+				width: 100% !important;
+				padding-left: 0;
 			}
 
-			&.visible {
-				@include vendor('transform', 'scale(1)');
-				opacity: 1;
+			.half.first {
+				width: 100% !important;
+				padding-left: 0;
 			}
 
-			&.success {
-				color: _palette(positive, bg);
-
-				&:before {
-					content: '\f00c';
-				}
-			}
-
-			&.failure {
-				color: _palette(negative, bg);
-
-				&:before {
-					content: '\f119';
-				}
+			.half:nth-last-child(2) {
+				margin: 0 0 (_size(element-margin) * 0.65) 0;
 			}
 		}
 	}
 
 	label {
-		color: _palette(fg-bold);
+		color: inherit;
 		display: block;
 		font-size: 0.9em;
 		font-weight: _font(weight-bold);
 		margin: 0 0 (_size(element-margin) * 0.5) 0;
-	}
-
-	@include keyframes(focus) {
-		0% { @include vendor('transform', 'scale(1)'); }
-		50% { @include vendor('transform', 'scale(1.025)'); }
-		100% { @include vendor('transform', 'scale(1)'); }
 	}
 
 	input[type="text"],
@@ -71,15 +79,9 @@
 	select,
 	textarea {
 		@include vendor('appearance', 'none');
-		@include vendor('transform', 'scale(1)');
-		@include vendor('transition', (
-			'border-color #{_duration(transition)} ease',
-			'background-color #{_duration(transition)} ease'
-		));
-		background-color: transparent;
 		border-radius: _size(border-radius);
 		border: none;
-		border: solid _size(border-width) _palette(border);
+		border: solid 1px;
 		color: inherit;
 		display: block;
 		outline: 0;
@@ -90,12 +92,6 @@
 		&:invalid {
 			box-shadow: none;
 		}
-
-		&:focus {
-			@include vendor('animation', 'focus 0.1s');
-			background-color: _palette(border-bg);
-			border-color: _palette(accent, bg);
-		}
 	}
 
 	.select-wrapper {
@@ -104,7 +100,6 @@
 		position: relative;
 
 		&:before {
-			color: _palette(border);
 			content: '\f078';
 			display: block;
 			height: _size(element-height);
@@ -145,7 +140,7 @@
 
 		& + label {
 			@include icon;
-			color: _palette(fg);
+			color: inherit;
 			cursor: pointer;
 			display: inline-block;
 			font-size: 1em;
@@ -155,9 +150,8 @@
 			position: relative;
 
 			&:before {
-				background: _palette(border-bg);
 				border-radius: _size(border-radius);
-				border: solid _size(border-width) _palette(border);
+				border: solid 1px;
 				content: '';
 				display: inline-block;
 				height: (_size(element-height) * 0.6);
@@ -172,17 +166,7 @@
 
 		&:checked + label {
 			&:before {
-				background: _palette(accent, bg);
-				border-color: _palette(accent, bg);
-				color: _palette(accent, fg-bold);
 				content: '\f00c';
-			}
-		}
-
-		&:focus + label {
-			&:before {
-				border-color: _palette(accent, bg);
-				box-shadow: 0 0 0 _size(border-width) _palette(accent, bg);
 			}
 		}
 	}
@@ -204,26 +188,112 @@
 	}
 
 	::-webkit-input-placeholder {
-		color: _palette(fg-light) !important;
-		opacity: 1.0;
+		color: inherit !important;
+		opacity: 0.5;
 	}
 
 	:-moz-placeholder {
-		color: _palette(fg-light) !important;
-		opacity: 1.0;
+		color: inherit !important;
+		opacity: 0.5;
 	}
 
 	::-moz-placeholder {
-		color: _palette(fg-light) !important;
-		opacity: 1.0;
+		color: inherit !important;
+		opacity: 0.5;
 	}
 
 	:-ms-input-placeholder {
-		color: _palette(fg-light) !important;
-		opacity: 1.0;
+		color: inherit !important;
+		opacity: 0.5;
 	}
 
-	.formerize-placeholder {
-		color: _palette(fg-light) !important;
-		opacity: 1.0;
+	@mixin color-form($p: null) {
+		.select-wrapper {
+			&:before {
+				color: _palette($p, border-alt);
+			}
+		}
+
+		@if ($p == 'invert') {
+			input[type="text"],
+			input[type="password"],
+			input[type="email"],
+			select,
+			textarea {
+				background: _palette($p, border-bg);
+				border-color: inherit;
+
+				&:focus {
+					background: _palette($p, border-alt);
+					box-shadow: 0 0 0 1px _palette($p, border);
+				}
+			}
+
+			input[type="checkbox"],
+			input[type="radio"], {
+				& + label {
+					&:before {
+						background: _palette($p, border-bg);
+						border-color: inherit;
+					}
+				}
+
+				&:focus + label {
+					&:before {
+						background: _palette($p, border-bg);
+						box-shadow: 0 0 0 1px _palette($p, border);
+					}
+				}
+
+				&:checked + label {
+					&:before {
+						background-color: _palette($p, fg);
+						border-color: _palette($p, fg);
+						color: _palette($p, bg);
+					}
+				}
+			}
+		}
+		@else {
+			input[type="text"],
+			input[type="password"],
+			input[type="email"],
+			select,
+			textarea {
+				background: _palette($p, bg);
+				border-color: _palette($p, border-alt);
+
+				&:focus {
+					border-color: _palette($p, border);
+					box-shadow: 0 0 0 1px _palette($p, border);
+				}
+			}
+
+			input[type="checkbox"],
+			input[type="radio"], {
+				& + label {
+					&:before {
+						background: _palette($p, bg);
+						border-color: _palette($p, border-alt);
+					}
+				}
+
+				&:focus + label {
+					&:before {
+						box-shadow: 0 0 0 1px _palette($p, border);
+						border-color: _palette($p, border);
+					}
+				}
+
+				&:checked + label {
+					&:before {
+						background-color: _palette($p, fg);
+						border-color: _palette($p, fg);
+						color: _palette($p, bg);
+					}
+				}
+			}
+		}
 	}
+
+	@include color-form;
